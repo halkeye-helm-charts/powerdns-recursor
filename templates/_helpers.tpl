@@ -54,3 +54,9 @@ Create the name of the service account to use
     {{ default "default" .Values.serviceAccount.name }}
 {{- end -}}
 {{- end -}}
+
+
+{{- define "powerdns-recursor.joinListWithComma" -}}
+{{- $local := dict "first" true -}}
+{{- range $k, $v := . -}}{{- if not $local.first -}},{{- end -}}{{- $k -}}={{- $v -}}{{- $_ := set $local "first" false -}}{{- end -}}
+{{- end -}}

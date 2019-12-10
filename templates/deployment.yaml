@@ -31,9 +31,7 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           command: ['/usr/sbin/pdns_recursor']
           args:
-          {{ range $key, $value := .zones }}
-            - --forward-zones={{ $key }}={{ $value }}
-          {{ end }}
+            - "--forward-zones={{- include "powerdns-recursor.joinListWithComma" .Values.zones }}"
           ports:
             - name: dns-tcp
               containerPort: 53
